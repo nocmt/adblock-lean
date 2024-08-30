@@ -226,7 +226,7 @@ print_def_config()
 	# comments must start at newline or inline after the closing double-quote
 
 	# One or more dnsmasq blocklist urls separated by spaces
-	blocklist_urls="https://raw.githubusercontent.com/hagezi/dns-blocklists/main/dnsmasq/pro.txt https://raw.githubusercontent.com/hagezi/dns-blocklists/main/dnsmasq/tif.mini.txt"
+	blocklist_urls="https://mirror.ghproxy.com/https://raw.githubusercontent.com/hagezi/dns-blocklists/main/dnsmasq/pro.txt https://mirror.ghproxy.com/https://raw.githubusercontent.com/hagezi/dns-blocklists/main/dnsmasq/tif.mini.txt"
 
 	# One or more allowlist urls separated by spaces
 	allowlist_urls=""
@@ -1152,7 +1152,7 @@ check_for_updates()
 	echo
 	rm -f "${abl_dir}/uclient-fetch_err"
 	sha256sum_adblock_lean_local=$(sha256sum /etc/init.d/adblock-lean | sed -E 's/[ \t]+.*$//')
-	sha256sum_adblock_lean_remote=$(uclient-fetch https://raw.githubusercontent.com/lynxthecat/adblock-lean/master/adblock-lean -O - \
+	sha256sum_adblock_lean_remote=$(uclient-fetch https://mirror.ghproxy.com/https://raw.githubusercontent.com/lynxthecat/adblock-lean/master/adblock-lean -O - \
 		2> "${abl_dir}/uclient-fetch_err" |
 		tee >(cat > "${abl_dir}/remote_abl"; . "${abl_dir}/remote_abl" 1>/dev/null 2>/dev/null && print_def_config |
 			get_config_format > "${abl_dir}/upd_config_format") |
@@ -1706,7 +1706,7 @@ update()
 
 	init_command update || exit 1
 	reg_action -purple "Obtaining latest version of adblock-lean." || exit 1
-	uclient-fetch https://raw.githubusercontent.com/lynxthecat/adblock-lean/master/adblock-lean \
+	uclient-fetch https://mirror.ghproxy.com/https://raw.githubusercontent.com/lynxthecat/adblock-lean/master/adblock-lean \
 		-O "${abl_dir}/adblock-lean.latest" 1> /dev/null 2> "${abl_dir}/uclient-fetch_err"
 	if ! grep -q "Download completed" "${abl_dir}/uclient-fetch_err"
 	then
